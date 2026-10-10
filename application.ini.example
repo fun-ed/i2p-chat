@@ -1,0 +1,86 @@
+# I2PChat Configuration Example
+# This file should be placed at ~/.i2pchat/application.ini
+
+[General]
+# Enable debug logging (logs to ~/.i2pchat/DebugLog.txt)
+DebugLogging=true
+
+# Qt style (Fusion, Windows, macOS)
+current_Style=Fusion
+
+[Network]
+# Java I2P 2.13.0 SAM bridge settings (enable SAM in the router separately)
+SAMHost=127.0.0.1
+SAMPort=7656
+
+# Router mode: local uses the existing local SAM endpoint; remote creates an
+# application-owned SSH ControlMaster and a loopback-only SAM forward.
+RouterMode=local
+SSHConfigFile=
+SSHProfile=
+SSHRemoteSAMHost=127.0.0.1
+SSHRemoteSAMPort=7656
+# 0 chooses an available 127.0.0.1 port; otherwise use a fixed local port.
+SSHLocalForwardPort=0
+
+# Remote mode requires system OpenSSH, a pre-trusted host key, and key/agent
+# authentication. I2PChat does not store SSH credentials.
+
+# Signature type for new I2P destinations
+# Options: EdDSA_SHA512_Ed25519 (recommended), ECDSA_SHA256_P256, ECDSA_SHA384_P384, ECDSA_SHA512_P521
+SignatureType=EdDSA_SHA512_Ed25519
+
+# SAM connect timeout in milliseconds (valid range: 1000-60000)
+SamConnectTimeoutMs=5000
+
+# SOCKS5 Proxy Settings
+# Set to true to connect to SAM bridge through a SOCKS5 proxy
+SOCKS5ProxyEnabled=false
+
+# SOCKS5 proxy host (IP or hostname)
+SOCKS5ProxyHost=
+
+# SOCKS5 proxy port (default: 1080)
+SOCKS5ProxyPort=1080
+
+# SOCKS5 proxy authentication (optional)
+SOCKS5ProxyUsername=
+SOCKS5ProxyPassword=
+
+[Style]
+# Custom QSS stylesheet path (optional)
+CustomStyleSheet=
+
+# Examples for different connection scenarios:
+
+# Example 1: Direct SAM connection (default, no proxy)
+# SOCKS5ProxyEnabled=false
+# SAMHost=127.0.0.1
+# SAMPort=7656
+
+# Example 2: Remote Java I2P SAM bridge via SOCKS5 proxy
+# SOCKS5ProxyEnabled=true
+# SOCKS5ProxyHost=proxy.example.test
+# SOCKS5ProxyPort=4444
+# SAMHost=127.0.0.1
+# SAMPort=7656
+
+# Example 3: Java I2P SAM bridge via SSH tunnel (SOCKS5)
+# SOCKS5ProxyEnabled=true
+# SOCKS5ProxyHost=127.0.0.1
+# SOCKS5ProxyPort=1080
+# SOCKS5ProxyUsername=
+# SOCKS5ProxyPassword=
+# SAMHost=127.0.0.1
+# SAMPort=7656
+
+# Example 4: Application-managed SSH forward to a VPS i2pd SAM bridge.
+# Put these keys under [Network]. Select an existing trusted SSH config and
+# its Host alias; no public SAM listener or SOCKS5 tunnel is required.
+# RouterMode=remote
+# SSHConfigFile=/absolute/path/to/ssh-config
+# SSHProfile=my-i2pd-vps
+# SSHRemoteSAMHost=127.0.0.1
+# SSHRemoteSAMPort=7656
+# SSHLocalForwardPort=0
+# Saved SOCKS5 settings are bypassed in Remote mode.

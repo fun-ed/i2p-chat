@@ -1,0 +1,9 @@
+[tools]
+java = "temurin-25.0.4+101.0.LTS"
+
+[vars]
+i2p_version = "2.13.0"
+
+[tasks.verify-java-i2p]
+description = "Verify pinned Java I2P artifacts on JDK 25 without starting a router"
+run = "python3 tools/verify_java_i2p.py {{vars.i2p_version}}"
